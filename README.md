@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Booking App – Frontend
 
-## Getting Started
+This is the frontend application for the Booking App system.
 
-First, run the development server:
+It allows authenticated users to:
 
-```bash
+- Log in using email and password
+- View their personal bookings
+- Create new bookings
+
+
+The frontend communicates with a Node.js + Express backend secured with Supabase authentication and Row-Level Security (RLS).
+
+## Tech Stack
+
+- Next.js (App Router)
+- React
+- Fetch API
+- Supabase (authentication handled via backend)
+
+## Features
+
+- Authentication flow (login + token storage)
+- Protected routes
+- Automatic root redirect based on authentication state
+- Create booking
+- View personal bookings
+- Cancel own bookings
+- JWT-based API requests
+
+## Authentication Flow
+
+1. User logs in via `/login`
+2. Backend verifies credentials using Supabase
+3. Backend returns an access_token
+4. Frontend stores the token in localStorage
+5. Token is sent in Authorization header for protected API routes
+
+## Installation
+
+1. Clone the repository
+
+git clone <repo-url>
+
+2. Install dependencies
+
+npm install
+
+3. Run the development server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App runs on:
+http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Backend
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This frontend requires the backend API to be running at:
 
-## Learn More
+http://localhost:5000
 
-To learn more about Next.js, take a look at the following resources:
+Backend repository:
+https://github.com/Kertich/booking-system
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+app/
+ ├── page.js          → Root redirect logic
+ ├── login/page.js    → Login page
+ ├── bookings/page.js → Protected bookings page
 
-## Deploy on Vercel
+## Future Improvements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Add booking status UI indicators
+- Add admin approval workflow
+- Improve UI styling
+- Implement token expiration handling
+- Replace localStorage with secure HTTP-only cookies
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+

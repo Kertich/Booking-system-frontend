@@ -44,15 +44,13 @@ const fetchBookings = async (token) => {
     if (Array.isArray(data)) {
         setBookings(data);
     } else {
-        console.error("Unexpected response:", data);
-        setBookings([]);
+       setBookings([]);
     }
 
     setLoading(false);
 
     } catch (error) {
-        console.error("Error fetching bookings:", error);
-        setLoading(false);
+       setLoading(false);
     }
 };
 
@@ -78,8 +76,7 @@ const fetchBookings = async (token) => {
                 const data = await res.json();
 
                 if (!res.ok) {
-                    alert(data.error || "Failed to create booking");
-                    return;
+                     return;
                 }
 
                 // Clear form
@@ -90,14 +87,33 @@ const fetchBookings = async (token) => {
                 fetchBookings(token);
 
             } catch (error) {
-                console.error("Error creating booking:", error);
-                alert("An error occurred while creating the booking.");
-            };
+                };
 
             if (loading) {
                 return <div>Loading...</div>;
             }
         };
+
+    const cancelBooking = async (id) => {
+        const token = localStorage.getItem("token");
+
+        const res = await fetch(`http://localhost:5000/api/bookings/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.error || "Failed to cancel booking.");
+            return;
+        }
+
+        // Refresh bookings list
+        fetchBookings(token);
+     };
 
             return (
                 <div style={{padding: "20px"}}>
@@ -133,7 +149,10 @@ const fetchBookings = async (token) => {
                     <ul>
                         {bookings.map((b) => (
                             <li key={b.id}>
-                                {b.date} - {b.time_slot} ({b.status})
+                                {b.date} - {b.time_slot} ({b.status || "pending"})
+                                <button onClick={() => cancelBooking(b.id)} style={{marginLeft: "10px"}}>
+                                    Cancel
+                                </button>
                             </li>
                         ))}
                     </ul>    

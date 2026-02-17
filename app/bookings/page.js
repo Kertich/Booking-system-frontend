@@ -97,8 +97,8 @@ const fetchBookings = async (token) => {
     const cancelBooking = async (id) => {
         const token = localStorage.getItem("token");
 
-        const res = await fetch(`http://localhost:5000/api/bookings/${id}`, {
-            method: "DELETE",
+        const res = await fetch(`http://localhost:5000/api/bookings/${id}/cancel`, {
+            method: "PATCH",
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -149,10 +149,14 @@ const fetchBookings = async (token) => {
                     <ul>
                         {bookings.map((b) => (
                             <li key={b.id}>
-                                {b.date} - {b.time_slot} ({b.status || "pending"})
-                                <button onClick={() => cancelBooking(b.id)} style={{marginLeft: "10px"}}>
+                                {b.date} - {b.time_slot} ({b.status })
+
+                                {b.status !== "cancelled" && (
+                                    <button onClick={() => cancelBooking(b.id)} style={{marginLeft: "10px"}}>
                                     Cancel
                                 </button>
+                                )}
+                                
                             </li>
                         ))}
                     </ul>    

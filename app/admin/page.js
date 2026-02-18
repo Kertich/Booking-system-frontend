@@ -1,8 +1,11 @@
 'use client';
+
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Admin() {
     const [stats, setStats] = useState("");
+    const router = useRouter();
 
     useEffect(() => { 
         const token = localStorage.getItem("token");

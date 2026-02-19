@@ -13,6 +13,7 @@ export default function RootLayout({ children }) {
                         <Link href="/bookings">My Bookings</Link>
                         <Link href="/admin/approvals">Admin Dashboard</Link>
                         <Link href="/login">Login</Link>
+                        <Link href="/signup">Sign Up</Link>
                     </div>
                 </nav>
 

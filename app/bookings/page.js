@@ -146,20 +146,61 @@ const fetchBookings = async (token) => {
                     {bookings.length === 0 ? (
                         <p>No bookings found.</p>
                     ) : ( 
-                    <ul>
-                        {bookings.map((b) => (
-                            <li key={b.id}>
-                                {b.date} - {b.time_slot} ({b.status })
 
-                                {b.status !== "cancelled" && (
-                                    <button onClick={() => cancelBooking(b.id)} style={{marginLeft: "10px"}}>
-                                    Cancel
-                                </button>
-                                )}
+
+
+
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time Slot</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {bookings.map((b) => (
+                                    <tr key={b.id}>
+                                        <td>{b.date}</td>
+                                        <td>{b.time_slot}</td>
+                                        <td>
+                                            <span className={`status ${b.status}`}>
+                                                {b.status}
+                                                </span>
+                                            </td>
+                                        <td>
+                                            {b.status === "pending" && (
+                                                <button onClick={() => cancelBooking(b.id)} style={{marginLeft: "10px"}}>
+                                                    Cancel
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>    
+                        </table>
+
+
+
+
+
+
+                    // <ul>
+                    //     {bookings.map((b) => (
+                    //         <li key={b.id}>
+                    //             {b.date} - {b.time_slot} ({b.status })
+
+                    //             {b.status !== "cancelled" && (
+                    //                 <button onClick={() => cancelBooking(b.id)} style={{marginLeft: "10px"}}>
+                    //                 Cancel
+                    //             </button>
+                    //             )}
                                 
-                            </li>
-                        ))}
-                    </ul>    
+                    //         </li>
+                    //     ))}
+                    // </ul>    
                     )}
                 </div>
             );

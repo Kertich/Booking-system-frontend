@@ -59,6 +59,32 @@ export default function AdminPage() {
 
             {bookings.length === 0 && <p>No pending bookings.</p>}
 
+
+
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time Slot</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {bookings.map((booking) => (
+                        <tr key={booking._id}>
+                            <td>{booking.date}</td>
+                            <td>{booking.time_slot}</td>
+                            <td>
+                                <button onClick={() => approveBooking(booking._id)}>Approve</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+
+
+{/* 
             <ul>
                 {bookings.map((booking) => (
                     <li key={booking._id}>
@@ -66,7 +92,7 @@ export default function AdminPage() {
                         <button onClick={() => approveBooking(booking._id)}>Approve</button>
                     </li>
                 ))}
-            </ul>
+            </ul> */}
         </div>
     );
 }

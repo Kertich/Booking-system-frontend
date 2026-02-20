@@ -16,6 +16,7 @@ const [loading, setLoading] = useState(true);
 //🔐 protect page
 useEffect(() => {
     const token = localStorage.getItem("token");
+    fetchBookings(token);
 
     if (!token) {
         router.push("/login");

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 export default function Bookings() {
 
@@ -13,13 +14,14 @@ const [date, setDate] = useState("");
 const [timeSlot, setTimeSlot] = useState("");
 const [loading, setLoading] = useState(true);
 
+
 //🔐 protect page
 useEffect(() => {
     const token = localStorage.getItem("token");
     fetchBookings(token);
 
     if (!token) {
-        router.push("/login");
+        router.replace("/login");
     }
 }), [];
 
@@ -31,12 +33,13 @@ const fetchBookings = async (token) => {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
+            cache: "no-store",
         });
     
 
     if (res.status === 401) {
         localStorage.removeItem("token");
-        router.push("/login");
+        router.replace("/login");
         return;
     }
 
@@ -117,6 +120,7 @@ const fetchBookings = async (token) => {
      };
 
             return (
+                <ProtectedRoute>
                 <div style={{padding: "20px"}}>
                     <h1>Bookings</h1>
 
@@ -204,5 +208,6 @@ const fetchBookings = async (token) => {
                     // </ul>    
                     )}
                 </div>
+                </ProtectedRoute>
             );
 }

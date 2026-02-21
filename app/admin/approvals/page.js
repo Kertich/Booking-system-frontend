@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import ProtectedRoute from "../../components/ProtectedRoute";
 
 export default function AdminPage() {
     const [bookings, setBookings] = useState([]);
@@ -54,6 +55,7 @@ export default function AdminPage() {
     }, []);
 
     return (
+        <ProtectedRoute adminOnly={true}>
         <div>
             <h1>Admin Dashboard</h1>
 
@@ -94,6 +96,7 @@ export default function AdminPage() {
                 ))}
             </ul> */}
         </div>
+            </ProtectedRoute>
     );
 }
 

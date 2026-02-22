@@ -1,9 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const router = useRouter();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,10 +25,15 @@ export default function Login() {
       return;
     }
 
-    localStorage.setItem("token", data.access_token);
+ 
 
-    //redirect to bookings page
-    router.push("/bookings");
+    login(data.token, data.role);
+    router.replace("/bookings");
+
+    // localStorage.setItem("token", data.access_token);
+
+    // //redirect to bookings page
+    // router.push("/bookings");
   };
 
   return (
